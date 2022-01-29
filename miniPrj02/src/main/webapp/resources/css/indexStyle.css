@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+* {padding: 0; margin: 0;}
+.background_img {
+	background: url(../images/blue_sky.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	width: 100%;
+	height: 100%;
+}
+header {
+	margin: 50px 0 50px 0;
+	height: 50px;
+}
+.container a {
+	font-family: 'Roboto', sans-serif;
+	font-size: 30px;
+	color: white;
+	text-decoration: none;
+	text-decoration-color: white;   
+}
+#logo {
+	margin-left: 50px;
+}
+#container_login {
+	margin-top: 20px;
+}
+#container_join {
+	margin-top: 20px;
+}
+#login, #join {
+	font-size: 14px;
+	vertical-align: bottom;
+}
+.content {
+	margin: 70px 50px 0px 50px;
+	height: 400px;
+	color: white; 
+	font-family: 'DM Serif Display', serif;
+}
+.text-center {
+	font-size: 77px;
+}
+footer {
+	margin-top: 50px;
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+	font-size: 18px;
+}
+@media (max-width: 991px) {
+#login {
+	margin-left: 30px;
+}
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+#login{
+	margin-left: 50px;
+}
+}
+@media (min-width: 1200px) {
+#login {
+	margin-left: 50px;
+}
+#join {
+	margin-left: 80px;
+}
+      
