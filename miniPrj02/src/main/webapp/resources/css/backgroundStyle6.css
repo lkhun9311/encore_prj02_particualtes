@@ -2,15 +2,16 @@
 
 * {padding: 0; margin: 0;}
 .background_img {
-	background: url(../images/blue_sky.png) fixed;
+	background: linear-gradient(#2f66da, #e1def3) fixed;
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
 	width: 100%;
 	height: auto;
+	z-index: -1;
 }
 header {
-	margin: 50px 0 50px 0;
+	margin: 50px 0 50px 50px;
 	height: 50px;
 }
 .container a {
@@ -20,24 +21,23 @@ header {
 	text-decoration: none;
 	text-decoration-color: white;   
 }
-#logo {
-	margin-left: 50px;
-}
-#container_login {
-	margin-top: 20px;
-}
-#container_join {
-	margin-top: 20px;
-}
-#login, #join {
-	font-size: 14px;
-	vertical-align: bottom;
-}
 .content {
-	margin: 70px 50px 0px 50px;
+	margin: 70px 50px 0px 35px;
 	height: 400px;
 	color: white; 
 	font-family: 'DM Serif Display', serif;
+}
+.col-aligncenter {
+	float: none;
+	margin: 0 auto;
+}
+#box {
+	margin-top: -40px;
+	width: 1400px;
+	height: 480px;
+    position: relative;
+	background-color: white;
+	box-shadow: 3.4px 6.9px 6.9px hsl(0deg 0% 0% / 0.39);
 }
 .text-center {
 	font-size: 77px;
@@ -48,22 +48,4 @@ footer {
 	line-height: 100px;
 	text-align: center;
 	font-size: 18px;
-}
-@media (max-width: 991px) {
-#login {
-	margin-left: 30px;
-}
-}
-@media (min-width: 992px) and (max-width: 1199px) {
-#login{
-	margin-left: 50px;
-}
-}
-@media (min-width: 1200px) {
-#login {
-	margin-left: 50px;
-}
-#join {
-	margin-left: 80px;
-}
-      
+}     

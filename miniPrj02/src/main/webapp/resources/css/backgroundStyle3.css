@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+* {padding: 0; margin: 0;}
+.background_img {
+	background: linear-gradient(#2f66da, #e1def3) fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	width: 100%;
+	height: auto;
+	z-index: -1;
+}
+header {
+	margin: 50px 0 50px 50px;
+	height: 50px;
+}
+.content {
+	margin: 30px 50px 0px -30px;
+	height: 300px;
+	width : 250px;
+	color: white; 
+	font-family: 'DM Serif Display', serif;
+    z-index: 0;
+    font-family: '맑은 고딕', sans-serif;
+    text-align: left;
+}
+#box1 {
+	margin-top: -20px;
+	width: 300px;
+	height: 230px;
+    position: absolute;
+	background-color: white;
+	box-shadow: 3.4px 6.9px 6.9px hsl(0deg 0% 0% / 0.39);
+	z-index: 1;
+	display: block;
+}
+#box2 {
+	margin-top: 230px;
+	width: 300px;
+	height: 230px;
+    position: absolute;
+	background-color: white;
+	box-shadow: 3.4px 6.9px 6.9px hsl(0deg 0% 0% / 0.39);
+	z-index: 1;
+}
+#phone {
+	margin-top: 5px;
+}
+#logo {
+	font-family: 'Roboto', sans-serif;
+	font-size: 30px;
+	color: white;
+	text-decoration: none;
+	text-decoration-color: white;   
+}
+form {
+    max-width: 300px;
+    z-index: 2;
+}
+input:focus {
+    outline: 1px solid #356adb;
+}
+input {
+    appearance: none;
+    border: 1px solid #ccc;
+    border-radius: .1875rem;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: .875rem;
+    margin-bottom: 1rem;
+    padding: .275rem;
+    width: 100%;
+}
+input[type="id"] {
+	font-size: 13px;
+	font-weight: 200;
+    margin-bottom: .5rem;
+}
+input[type="phone"] {
+	font-size: 13px;
+	font-weight: 200;
+    margin-bottom: .5rem;
+}
+input[type="submit"] {
+	margin-top: 8px;
+    background-color: #356adb;
+    border: none;
+    border-radius: .1875rem;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    padding: .5rem 1rem;
+    text-align: center;
+}
+label {
+	font-weight: 500; 
+    z-index: -1;
+    display: block;
+    vertical-align: middle;
+    color: #333;
+    text-align: left;
+}
+footer {
+	margin-top: 170px;
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+	font-size: 18px;
+}     
