@@ -24,19 +24,19 @@
     <div class="container background_img">
       <header>
       	<div class="row">
-          <div class="col-xs-3 col-sm-6 col-md-6 col-lg-6">
-            <a href=index.jsp id="logo">
+          <div class="col-xs-3 col-sm-4 col-md-5 col-lg-6">
+            <a href=newIndex.jsp id="logo">
              DATA.air.kr
             </a>
           </div>
-          <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 col-lg-push-1" id="container_logout">
+          <div class="col-xs-3 col-xs-push-3 col-sm-2 col-sm-push-4 col-md-2 col-md-pull-1 col-lg-2 col-lg-push-3" id="container_logout">
             <a href="LogoutController.java로 가기" id="logout">로그아웃</a>
           </div>
-          <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 col-lg-push-1" id="container_info">
+          <div class="col-xs-3 col-xs-push-2 col-sm-2 col-sm-push-3 col-md-2 col-md-pull-1 col-lg-2 col-lg-push-2" id="container_info">
             <a href="info.jsp" id="info">개인정보</a>
           </div>
-          <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2 col-lg-push-1" id="container_res">
-            <a href="check.jsp" id="res">결과확인</a>
+          <div class="col-xs-3 col-xs-push-1 col-sm-2 col-sm-push-2 col-md-2 col-md-pull-1 col-lg-2 col-lg-push-1" id="container_res">
+            <a href="check.jsp" id="res">통계결과</a>
           </div>
         </div>
       </header>

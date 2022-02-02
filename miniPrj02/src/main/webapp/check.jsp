@@ -18,19 +18,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=DM+Serif+Display&family=Roboto:wght@500&display=swap" rel="stylesheet">
   
-    <link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/css/backgroundStyle.css" />
+    <link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/css/backgroundStyle5.css" />
 </head>
 <body>
     <div class="container background_img">
       <header>
       	<div class="row">
           <div class="col-md-12">      
-      		<a href=index.jsp id="logo">DATA.air.kr</a>
+      		<a href=newIndex.jsp id="logo">DATA.air.kr</a>
       	  </div>
       	</div>
       </header>
       <div class="content">
-        <p class="text-center">info.jsp</p>
+          <div class="row">
+          	  <div class="col-md-6 col-aligncenter" id="box">
+       
+          	  </div>
+          </div>
       </div>
       <footer>
         <p>&copy; 2022. 미세먼지. all rights reserved.</p>

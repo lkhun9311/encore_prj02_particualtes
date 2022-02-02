@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.particulates</groupId>
 	<artifactId>prj</artifactId>
-	<name>BoardWeb</name>
+	<name>miniPrj02</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>

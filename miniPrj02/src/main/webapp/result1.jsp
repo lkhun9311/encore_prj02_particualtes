@@ -18,14 +18,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=DM+Serif+Display&family=Roboto:wght@500&display=swap" rel="stylesheet">
   
-    <link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/css/backgroundStyle2.css" />
+    <link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/css/backgroundStyle6.css" />
 </head>
 <body>
     <div class="container background_img">
       <header>
       	<div class="row">
-          <div class="col-md-10">      
-      		<a href=index.jsp id="logo">DATA.air.kr</a>
+          <div class="col-md-12">      
+      		<a href=newIndex.jsp id="logo">DATA.air.kr</a>
       	  </div>
       	</div>
       </header>

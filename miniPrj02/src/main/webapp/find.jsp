@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=DM+Serif+Display&family=Roboto:wght@500&display=swap" rel="stylesheet">
   
-    <link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/css/backgroundStyle2.css" />
+    <link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/css/backgroundStyle3.css" />
 </head>
 <body>
     <div class="container background_img">
@@ -31,8 +31,27 @@
       </header>
       <div class="content">
           <div class="row">
-          	  <div class="col-md-6 col-aligncenter" id="box">
-       
+          	  <div class="col-xs-3 col-xs-offset-3 col-sm-6 col-sm-offset-5 col-md-6 col-md-offset-5" id="box1" align="center">
+       			  <form action="find1.do" method="post">
+       		        	  <label><h2>아이디 찾기</h2><label>
+					      <label for="id1">이름</label>
+					      <input type="id" id="id1" placeholder="이름 입력" maxlength="20">
+					      <label for="phone1">전화번호</label>
+					      <input type="phone" id="phone1" placeholder="전화번호 입력" maxlength="20">
+					      <input type="submit" value="확인" onclick="check1()">
+			       </form>    
+          	  </div>
+          </div>
+          <div class="row">
+          	  <div class="col-xs-3 col-xs-offset-3 col-sm-6 col-sm-offset-5 col-md-6 col-md-offset-5" id="box2" align="center">
+       			  <form action="find2.do" method="post">
+       		        	  <label><h2>비밀번호 찾기</h2><label>
+					      <label for="id2">아이디</label>
+					      <input type="id" id="id2" placeholder="아이디 입력" maxlength="20">
+					      <label for="phone2">전화번호</label>
+					      <input type="phone" id="phone2" placeholder="전화번호 입력" maxlength="13">
+					      <input type="submit" value="확인" onclick="check2()">
+			       </form> 
           	  </div>
           </div>
       </div>
