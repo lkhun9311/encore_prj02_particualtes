@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=DM+Serif+Display&family=Roboto:wght@500&display=swap" rel="stylesheet">
   
-    <link rel = "stylesheet" href="./resources/css/indexStyle.css" />
+    <link rel = "stylesheet" href="resources/css/indexStyle.css" />
       
   </head>
   <body>
@@ -33,7 +33,7 @@
             <a href="login.jsp" id="login">로그인</a>
           </div>
           <div class="col-xs-3 col-sm-2 col-md-2 col-lg-2" id="container_join">
-            <a href="join.jsp" id="join">회원가입</a>
+            <a href="signUp.jsp" id="join">회원가입</a>
           </div>
         </div>
       </header>

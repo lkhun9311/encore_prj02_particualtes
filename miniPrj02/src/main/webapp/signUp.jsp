@@ -1,6 +1,5 @@
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -9,10 +8,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>미세먼지</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -29,35 +24,9 @@
 	href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=DM+Serif+Display&family=Roboto:wght@500&display=swap"
 	rel="stylesheet">
 
-<link rel="stylesheet" href="resources/css/backgroundStyle1.css" />
-
-<script src="${pageContext.request.contextPath}/login.js"
-	type="text/javascript"></script>
-
+<link rel="stylesheet" href="resources/css/backgroundStyle2.css" />
 </head>
 <body>
-
-	<script>
-	
-		$(document).ready(function(){
-			console.log("안녕");
-			$('#login').submit(function(){
-				$.ajax({
-					type : 'POST',
-					url : '/login',
-					dataType : 'json',
-					contentType : 'application/json; charset=utf-8',
-					data : JSON.stringify(data)
-				}).done(function() {
-					alert('글이 등록되었습니다.');
-					window.location.href = '/';
-				}).fail(function(err) {
-					alert(JSON.stringify(err));
-				})
-			})
-		})
-		
-	</script>
 	<div class="container background_img">
 		<header>
 			<div class="row">
@@ -71,24 +40,38 @@
 				<div
 					class="col-xs-3 col-xs-offset-3 col-sm-6 col-sm-offset-5 col-md-6 col-md-offset-5"
 					id="box" align="center">
-					<form  action="/login" method="post"
-						name="login" id="login">
-						<h2>로그인</h2>
+					<form enctype="application/json" action="/user/join" method="post" name="join">
+						<h2>회원가입</h2>
 						<p>아이디</p>
 						<input id="username" name="username" placeholder="아이디 입력"
 							maxlength="20">
+						<p>닉네임</p>
+						<input id="nickname" name="nickname" placeholder="닉네임 입력"
+							maxlength="20">
 						<p>비밀번호</p>
-						<input type="password" id="password" name="password"
-							placeholder="비밀번호 입력" maxlength="20"> <input
-							type="submit" value="로그인" onclick="formArray()"> <a
-							href="find.jsp" id="find">아이디/비밀번호 찾기</a>
+						<input type="password" id="pwd" name="pwd" placeholder="비밀번호 입력"
+							maxlength="20">
+						<p>생일</p>
+						<input type="date" id="birth" name="birth" placeholder="생일 입력"
+							maxlength="20">
+						<p>전화번호</p>
+						<input type="text" id="phone" name="phone" placeholder="전화번호 입력"
+							maxlength="20">	
+					
+						<p>주소</p>
+						<input type="text" id="addr" name="addr" placeholder="지역 입력"
+							maxlength="20"> <br /> <label class="test_obj">
+							<input type="radio" name="gender" value="man"> <span>남자</span>
+						</label> <label class="test_obj"> <input type="radio"
+							name="gender" value="woman"> <span>여자</span>
+						</label> <br /> <input type="submit" value="회원가입" onclick="login()">
 					</form>
-
 				</div>
 			</div>
 		</div>
+		<br/>
 		<footer>
-			<p id="footer">&copy; 2022. 미세먼지. all rights reserved.</p>
+			<p>&copy; 2022. 미세먼지. all rights reserved.</p>
 		</footer>
 	</div>
 

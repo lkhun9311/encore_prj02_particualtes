@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+* {padding: 0; margin: 0;}
+.background_img {
+	background: linear-gradient(#2f66da, #e1def3) fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	width: 100%;
+	height: auto;
+	z-index: -1;
+}
+header {
+	margin: 50px 0 50px 50px;
+	height: 50px;
+	
+}
+.content {
+	margin: 30px 50px 0px -30px;
+	height: 340px;
+	width : 300px;
+	color: black; 
+	font-family: 'DM Serif Display', serif;
+    z-index: 0;
+    font-family: '맑은 고딕', sans-serif;
+    text-align: left;
+}
+#box {
+	position: absolute;
+	width: 300px;
+	height: 300px;
+	background-color: white;
+	box-shadow: 3.4px 6.9px 6.9px hsl(0deg 0% 0% / 0.39);
+	z-index: 1;
+	display: block;
+}
+#logo {
+	font-family: 'Roboto', sans-serif;
+	font-size: 30px;
+	color: white;
+	text-decoration: none;
+	text-decoration-color: white;   
+}
+form {
+    max-width: 400px;
+    height: 500px;
+    z-index: 2;
+}
+input {
+    appearance: none;
+    border: 1px solid #ccc;
+    border-radius: .1875rem;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: .875rem;
+    margin-bottom: 1rem;
+    padding: .275rem;
+    width: 100%;
+}
+input:focus {
+    outline: 1px solid #356adb;
+}
+input[type="id"] {
+	font-size: 13px;
+	font-weight: 200;
+    margin-bottom: .5rem;
+}
+input[type="password"] {
+	font-size: 13px;
+	font-weight: 200;
+    margin-bottom: .5rem;
+}
+input[type="checkbox"] {
+    appearance: checkbox;
+    display: inline-block;
+    width: auto;
+    margin-bottom: .5rem;
+}
+input[type="submit"] {
+    background-color: #356adb;
+    border: none;
+    border-radius: .1875rem;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    padding: .5rem 1rem;
+}
+a[type="find"] {
+	appearance: none;
+    border-radius: .1875rem;
+    box-sizing: border-box;
+    display: block;
+    margin-bottom: 1rem;
+    width: 100%;
+    background-color: #356adb;
+    border: none;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    padding: .5rem 1rem;
+    text-align: center;
+	text-decoration: none;
+}
+label {
+	font-weight: 500; 
+    z-index: -1;
+    display: inline-block;
+    vertical-align: middle;
+    color: #333;
+    text-align: left;
+}
+footer {
+	margin-top: 130px;
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+	font-size: 18px;
+}     
