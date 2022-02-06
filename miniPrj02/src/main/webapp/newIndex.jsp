@@ -36,7 +36,7 @@
             <a href="info.jsp" id="info">개인정보</a>
           </div>
           <div class="col-xs-3 col-xs-push-1 col-sm-2 col-sm-push-2 col-md-2 col-md-pull-1 col-lg-2 col-lg-push-1" id="container_res">
-            <a href="check.jsp" id="res">통계결과</a>
+            <a href="checkbox.jsp" id="res">통계결과</a>
           </div>
         </div>
       </header>
