@@ -16,7 +16,7 @@ header {
 }
 .content {
 	margin: 30px 50px 0px -30px;
-	height: 340px;
+	height: 330px;
 	width : 300px;
 	color: white; 
 	font-family: 'DM Serif Display', serif;
@@ -27,7 +27,7 @@ header {
 #box {
 	position: absolute;
 	width: 300px;
-	height: 300px;
+	height: 270px;
 	background-color: white;
 	box-shadow: 3.4px 6.9px 6.9px hsl(0deg 0% 0% / 0.39);
 	z-index: 1;
@@ -58,23 +58,22 @@ input {
 input:focus {
     outline: 1px solid #356adb;
 }
-input[type="id"] {
+input[id="id"] {
 	font-size: 13px;
 	font-weight: 200;
     margin-bottom: .5rem;
+    color: #333;
+    z-index: -1;
 }
 input[type="password"] {
 	font-size: 13px;
 	font-weight: 200;
     margin-bottom: .5rem;
-}
-input[type="checkbox"] {
-    appearance: checkbox;
-    display: inline-block;
-    width: auto;
-    margin-bottom: .5rem;
+    color: #333;
+    z-index: -1;
 }
 input[type="submit"] {
+	margin-top: 10px;
     background-color: #356adb;
     border: none;
     border-radius: .1875rem;
@@ -83,7 +82,7 @@ input[type="submit"] {
     font-weight: 700;
     padding: .5rem 1rem;
 }
-a[type="find"] {
+#find {
 	appearance: none;
     border-radius: .1875rem;
     box-sizing: border-box;
@@ -99,18 +98,23 @@ a[type="find"] {
     text-align: center;
 	text-decoration: none;
 }
-label {
+h2 {
+	text-align: left;
+	z-index: -1;
+	color: #333;
+}
+p {
+	margin: 1px 0 -0.3px 0;
 	font-weight: 500; 
     z-index: -1;
-    display: inline-block;
-    vertical-align: middle;
+    display: block;
     color: #333;
     text-align: left;
 }
-footer {
-	margin-top: 130px;
+#footer {
+	margin-top: 140px;
 	height: 100px;
 	line-height: 100px;
 	text-align: center;
 	font-size: 18px;
-}     
+}  

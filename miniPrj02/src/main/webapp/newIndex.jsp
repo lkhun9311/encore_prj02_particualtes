@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=DM+Serif+Display&family=Roboto:wght@500&display=swap" rel="stylesheet">
   
     <link rel = "stylesheet" href="${pageContext.request.contextPath}/resources/css/newIndexStyle.css" />
-      
+     
   </head>
   <body>
     <div class="container background_img">
