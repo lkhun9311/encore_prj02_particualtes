@@ -20,13 +20,16 @@ public class UserResponceDto {
 	public UserResponceDto(User entity) {
 		this.username = entity.getUsername();
 		this.nickname = entity.getNickname();
-		this.revisit = entity.getRevisit();
 		this.status = entity.getStatus();
 		this.roles = entity.getRoles();
 		this.createdTime = getCreatedTime();
 		this.updateTime = getUpdateTime();
 		this.refreshToken = entity.getRefreshToken();
 	}
+	
+  public UserResponceDto(String username) {
+	  this.username = username;
+  }
 	
 	
 	

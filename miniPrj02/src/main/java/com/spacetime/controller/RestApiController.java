@@ -24,6 +24,10 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -56,6 +60,30 @@ public class RestApiController {
 		return "<h1>Token</h1>";
 	}
 
+	@RequestMapping(value = "/user/check", method = RequestMethod.GET)
+	@ResponseBody
+	protected boolean usernameCheck(@RequestParam(value = "username") String username, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+		System.out.println("안녕 체크다.");
+
+		try {
+			System.out.println(username);
+			User userEntity = userRepository.findByUsername(username);
+			PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
+			String result = principalDetails.getUsername();
+
+			if (result.equals(username)) {
+				System.out.println("해당 아이디가 이미 있습니다.");
+			}
+
+			return false;
+		} catch (Exception e) {
+			return true;
+
+		}
+
+	}
+
 	@PostMapping("/user/join")
 	protected void successfulAuthentication(User user, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -66,7 +94,7 @@ public class RestApiController {
 		String formatedNow = now.format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초"));
 
 		String refreshToken = JWT.create().withSubject(formatedNow)
-				.withExpiresAt(new Date(System.currentTimeMillis() + 300 * 60 * 1000))
+				.withExpiresAt(new Date(System.currentTimeMillis() + 1209600000))
 				.withIssuer(request.getRequestURI().toString()).sign(Algorithm.HMAC512("cos"));
 
 		String sName = (String) request.getParameter("username");
@@ -74,14 +102,10 @@ public class RestApiController {
 		String sPwd = (String) request.getParameter("pwd");
 		String sPhone = (String) request.getParameter("phone");
 
-		
-		
 		String lBirth = request.getParameter("birth");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
 		LocalDate birth = LocalDate.parse(lBirth);
-		
-		
-		
+
 		String sAddr = (String) request.getParameter("addr");
 		String sGender = (String) request.getParameter("gender");
 
@@ -89,7 +113,7 @@ public class RestApiController {
 
 		user.setUsername(sName);
 		user.setNickname(sNick);
-		user.setRefreshToken(refreshToken);
+		user.setRefreshToken("Bearer+" + refreshToken);
 		user.setPassword(bCryptPasswordEncoder.encode(sPwd));
 //		System.out.println("에러인가?? 77줄");
 //
@@ -106,13 +130,13 @@ public class RestApiController {
 
 		// RSA방식은 아니고 Hash암호방식
 		String jwtToken = JWT.create().withSubject(sName)
-				.withExpiresAt(new Date(System.currentTimeMillis() + (60000 * 10))).withClaim("id", user.getId())
+				.withExpiresAt(new Date(System.currentTimeMillis() + (60000 * 10))).withClaim("username", user.getUsername())
 				.withClaim("username", user.getUsername()).sign(Algorithm.HMAC512("cos"));
 
 		System.out.println("에러인가?? 91즐");
 		Map<String, String> tokens = new HashMap<>();
 		tokens.put("access_token", jwtToken);
-		tokens.put("refresh_token", refreshToken);
+		tokens.put("refresh_token", "{" +  refreshToken + "}");
 		tokens.put("id", String.valueOf(user.getId()));
 		tokens.put("username", user.getUsername());
 		tokens.put("nickname", user.getNickname());
@@ -124,11 +148,11 @@ public class RestApiController {
 		tokens.put("status", "Active");
 		tokens.put("JoinDate", String.valueOf(user.getCreatedTime()));
 		tokens.put("ActiveTime", String.valueOf(user.getUpdateTime()));
-		
+
 //		Cookie cookie = new Cookie("Token", "Bearer " + jwtToken);
 //
 //		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-		
+
 //		new ObjectMapper().writeValue(response.getOutputStream(), tokens);
 
 		@SuppressWarnings("deprecation")
@@ -141,94 +165,147 @@ public class RestApiController {
 		cookie.setSecure(true);
 		cookie.setHttpOnly(true);
 		cookie.setPath("/");
+
+		
 		// add cookie to response
 
 		System.out.println("이거 되나 안되나???");
 		response.addCookie(cookie);
 		response.sendRedirect("/");
+
+	}
+
+	@GetMapping("/user")
+	public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//		String authorizationHeader = request.getHeader("Authorization");
+//		String refreshHeader = request.getHeader("refreshToken");
+		
+		Cookie[] cs = request.getCookies();
+		if (cs != null) {
+			for (int i = 0; i < cs.length; i++) {
+
+				Cookie c = cs[i];
+				String cname = c.getName();
+				System.out.println(cname);
+				String cvalue = c.getValue();
+				System.out.println(cvalue);
+				if (cname.equals("Authorization")) {
+//					String replace = cvalue.replace("Bearer+", "");
+//					String authorization = JWT.require(Algorithm.HMAC512("cos")).build().verify(replace).getClaim("username")
+//							.asString();	
+					if (cname != null && cvalue.startsWith("Bearer+")) {
+						try {
+							String refreshToken = cvalue.substring("Bearer+".length());
+
+							String username = JWT.require(Algorithm.HMAC512("cos")).build().verify(refreshToken)
+									.getClaim("username").asString();
+
+							User userEntity = userRepository.findByUsername(username);
+							PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
+
+							System.out.println(userEntity);
+
+							System.out.println("141번쨰 줄 " + refreshToken);
+
+							User user = new User();
+
+							System.out.println("============== 토근 저장 성공 =======================");
+
+							String reToken = principalDetails.getRefreshToken();
+							System.out.println(reToken);
+
+							long rToken = JWT.require(Algorithm.HMAC512("cos")).build().verify(reToken).getClaim("exp")
+									.asLong();
+//				               
+							System.out.println(rToken);
+
+							long j = new Date().getTime() / (long) 1000;
+							System.out.println(j);
+
+							if (rToken > i) {
+
+								String accessToken = JWT.create()
+										.withSubject(Long.toHexString(principalDetails.getId() + new Date().getTime()))
+										.withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
+										.withIssuer(request.getRequestURI().toString()).withClaim("id", principalDetails.getId())
+										.withClaim("username", principalDetails.getUsername()).sign(Algorithm.HMAC512("cos"));
+
+								System.out.println((userRepository.findById(principalDetails.getId())));
+
+								Map<String, String> tokens = new HashMap<>();
+								tokens.put("access_token", accessToken);
+								tokens.put("refresh_token", principalDetails.getRefreshToken());
+								tokens.put("id", String.valueOf(principalDetails.getId()));
+								tokens.put("username", principalDetails.getUsername());
+								tokens.put("nickname", principalDetails.getNickname());
+								tokens.put("role", principalDetails.getRole());
+								tokens.put("status", principalDetails.getStatus());
+								tokens.put("JoinDate", String.valueOf(principalDetails.getCreateTime()));
+								tokens.put("ActiveTime", String.valueOf(principalDetails.getUpdateTime()));
+
+								response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+								new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+							} else {
+								response.setHeader("error", "토큰이 만료 되었습니다.");
+								response.setStatus(403, "권한이 없습니다.");
+							}
+
+						} catch (Exception e) {
+							response.setHeader("error", e.getMessage());
+							response.setStatus(403, "권한이 없습니다.");
+
+							Map<String, String> error = new HashMap<>();
+							error.put("error_message", e.getMessage());
+							response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+							new ObjectMapper().writeValue(response.getOutputStream(), error);
+						}
+
+					} else {
+						throw new RuntimeException("Refresh token is missing");
+					}
+					
+					
+					
+					}
+				
+			}
+		}
+
+
 		
 	}
 
-	@GetMapping("/token/refresh")
-	public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String authorizationHeader = request.getHeader("Authorization");
-		String refreshHeader = request.getHeader("refreshToken");
-
-		System.out.println(authorizationHeader);
-
-		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-			try {
-				String refreshToken = authorizationHeader.substring("Bearer ".length());
-
-				String username = JWT.require(Algorithm.HMAC512("cos")).build().verify(refreshToken)
-						.getClaim("username").asString();
-
-				User userEntity = userRepository.findByUsername(username);
-				PrincipalDetails principalDetails = new PrincipalDetails(userEntity);
-
-				System.out.println(userEntity);
-
-				System.out.println("141번쨰 줄 " + refreshHeader);
-
-				User user = new User();
-
-				System.out.println("============== 토근 저장 성공 =======================");
-
-				String reToken = principalDetails.getRefreshToken();
-				System.out.println(reToken);
-
-				long rToken = JWT.require(Algorithm.HMAC512("cos")).build().verify(refreshHeader).getClaim("exp")
-						.asLong();
-//	               
-				System.out.println(rToken);
-
-				long i = new Date().getTime() / (long) 1000;
-				System.out.println(i);
-
-				if (rToken > i) {
-
-					String accessToken = JWT.create()
-							.withSubject(Long.toHexString(principalDetails.getId() + new Date().getTime()))
-							.withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
-							.withIssuer(request.getRequestURI().toString()).withClaim("id", principalDetails.getId())
-							.withClaim("username", principalDetails.getUsername()).sign(Algorithm.HMAC512("cos"));
-
-					System.out.println((userRepository.findById(principalDetails.getId())));
-
-					Map<String, String> tokens = new HashMap<>();
-					tokens.put("access_token", accessToken);
-					tokens.put("refresh_token", principalDetails.getRefreshToken());
-					tokens.put("id", String.valueOf(principalDetails.getId()));
-					tokens.put("username", principalDetails.getUsername());
-					tokens.put("nickname", principalDetails.getNickname());
-					tokens.put("revisit", String.valueOf(principalDetails.getRevisit()));
-					tokens.put("role", principalDetails.getRole());
-					tokens.put("status", principalDetails.getStatus());
-					tokens.put("JoinDate", String.valueOf(principalDetails.getCreateTime()));
-					tokens.put("ActiveTime", String.valueOf(principalDetails.getUpdateTime()));
-
-					response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-					new ObjectMapper().writeValue(response.getOutputStream(), tokens);
-				} else {
-					response.setHeader("error", "토큰이 만료 되었습니다.");
-					response.setStatus(403, "권한이 없습니다.");
-				}
-
-			} catch (Exception e) {
-				response.setHeader("error", e.getMessage());
-				response.setStatus(403, "권한이 없습니다.");
-
-				Map<String, String> error = new HashMap<>();
-				error.put("error_message", e.getMessage());
-				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-				new ObjectMapper().writeValue(response.getOutputStream(), error);
-			}
-
-		} else {
-			throw new RuntimeException("Refresh token is missing");
-		}
-	}
-
+//	@GetMapping("/user/logout")
+//	public String logout(HttpServletResponse response, HttpServletRequest request) {
+//		Cookie[] cs = request.getCookies();
+//		if (cs != null) {
+//			for (int i = 0; i < cs.length; i++) {
+//
+//				Cookie c = cs[i];
+//				String cname = c.getName();
+//				System.out.println(cname);
+//				String cvalue = c.getValue();
+//				System.out.println(cvalue);
+//				if (cname.equals("Authorization")) {
+//					String replace = cvalue.replace("Bearer+", "");
+//
+//					String username = JWT.require(Algorithm.HMAC512("cos")).build().verify(replace).getClaim("username")
+//							.asString();
+//					
+//				    
+//					expireCookie(response, "Authorization");
+//
+//				}
+//			}
+//		}
+//		return "redirect:/";
+//	}
+//
+//	private void expireCookie(HttpServletResponse response, String cookieName) {
+//		Cookie cookie = new Cookie(cookieName, null);
+//		cookie.setMaxAge(0);
+//		response.addCookie(cookie);
+//	}
 //	@GetMapping("/user")
 //	public List<UserResponceDto> refresh( String id, User user) {
 //		userRepository.findById(Long.parseLong(id));

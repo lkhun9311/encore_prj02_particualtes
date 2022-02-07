@@ -20,7 +20,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -37,6 +39,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	@Autowired
 	private final AuthenticationManager authenticationManager;
+	
+	
 
 	
 
@@ -69,6 +73,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
 			// ===> 로그인이 되었다는 뜻.
+			
 			PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
 			System.out.println("로그인 완료됨 : " + principalDetails.getUser().getUsername()); // 로그인 정상적으로 되었다는 뜻.
 			// authentication 객체가 session 영역에 저장을 해야하고 그 방법을 return 해주면 됨..
@@ -134,7 +139,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 //            new ObjectMapper().writeValue(response.getOutputStream(), tokens);
 
 		@SuppressWarnings("deprecation")
-		Cookie cookie = new Cookie("Authorization", URLEncoder.encode("Bearer " + jwtToken));
+		Cookie cookie = new Cookie("Authorization", URLEncoder.encode("Bearer " +  jwtToken  ));
+		Cookie cookie2 = new Cookie("refreshToken", URLEncoder.encode("Bearer "+refreshToken));
+		
 
 		// expires in 7 days
 		cookie.setMaxAge(7 * 24 * 60 * 60);
@@ -145,6 +152,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		cookie.setPath("/");
 
 		// add cookie to response
+		response.addCookie(cookie2);
 		response.addCookie(cookie);
 		response.sendRedirect("/");
 	}

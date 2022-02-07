@@ -44,7 +44,7 @@
 			$('#login').submit(function(){
 				$.ajax({
 					type : 'POST',
-					url : '/login',
+					url : 'http://211.106.174.149:9000/login',
 					dataType : 'json',
 					contentType : 'application/json; charset=utf-8',
 					data : JSON.stringify(data)
